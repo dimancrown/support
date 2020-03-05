@@ -19,9 +19,21 @@ import com.rabo.customer.response.CustomerResult;
 import com.rabo.customer.response.CustomerStatementResponse;
 import com.rabo.customer.response.ErrorRecord;
 
+/**
+ * Custome Exception class which will capture all the exception
+ * @author diman
+ *
+ */
 @RestControllerAdvice
 public class CustomExceptionHandler {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	/**
+	 * This custom exception handler for catch the validation failures.
+	 * DUPLICATE_REFERENCE,INCORRECT_END_BALANCE,DUPLICATE_REFERENCE_INCORRECT_END_BALANCE
+	 * @param ex
+	 * @return CustomerStatementResponse
+	 */
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<CustomerStatementResponse> handleException(MethodArgumentNotValidException ex) {
@@ -29,6 +41,10 @@ public class CustomExceptionHandler {
 		CustomerStatementResponse respone = new CustomerStatementResponse();
 		StringBuilder builder = new StringBuilder();
 		List<ErrorRecord> errors = new ArrayList<>();
+		/**
+		 * Forming error response for validation..
+		 * Based on the requirement custom response message formed.
+		 */
 		ex.getBindingResult().getAllErrors().forEach(error -> {
 			if(((FieldError) error).getRejectedValue() instanceof CustomerStatement)
 			{
@@ -59,6 +75,11 @@ public class CustomExceptionHandler {
 		return new ResponseEntity<>(respone, HttpStatus.OK);
 	}
 	
+	/**
+	 * The list of error records formed.
+	 * @param custStatement
+	 * @return ErrorRecord
+	 */
 	private ErrorRecord bindErrorMessages(CustomerStatement custStatement)
 	{
 		ErrorRecord errorRecord = new ErrorRecord();
@@ -67,6 +88,12 @@ public class CustomExceptionHandler {
 		return errorRecord;
 	}
 	
+	/**
+	 * In case of exception in process customer statement
+	 * this exception handler will be initiated
+	 * @param ex
+	 * @return CustomerStatementResponse
+	 */
 	
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomerStatementResponse> handleException(Exception ex) {
@@ -77,6 +104,11 @@ public class CustomExceptionHandler {
 		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
+    /**
+     * if  bad requet passed from upstream then this handler will be initiated.
+     * @param ex
+     * @return CustomerStatementResponse
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<CustomerStatementResponse> handleException(HttpMessageNotReadableException  ex) {
 		logger.error(ex.getMessage(), ex.getCause());
@@ -85,6 +117,4 @@ public class CustomExceptionHandler {
 		response.setErrorRecords(new ArrayList<ErrorRecord>());
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-	
-	 
 }

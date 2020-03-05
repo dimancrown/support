@@ -16,13 +16,25 @@ import com.rabo.customer.response.CustomerResult;
 import com.rabo.customer.response.CustomerStatementResponse;
 import com.rabo.customer.response.ErrorRecord;
 import com.rabo.customer.service.CustomerStatementService;
-
+/**
+ * 
+ * @author diman
+ *Customer statement Controller receive the 
+ * request by List of json data
+ */
 @RestController
 @RequestMapping("/rabo/customer-report/")
 public class CustomerStatementController {
 
 	@Autowired
 	CustomerStatementService customerService;
+	
+	/**
+	 * Before processing the customer statement
+	 * validation will be handle by @Valid
+	 * @param customerWrapper
+	 * @return CustomerStatementResponse
+	 */
 
 	@PostMapping("/process")
 	public CustomerStatementResponse proessCustomerReport(@Valid @RequestBody CustomerStatementWrapper customerWrapper) {

@@ -1,6 +1,10 @@
 package com.rabo.customer.model.wrapper;
 
 import java.util.List;
+/**
+ * This model is Holder for CustomerStatement List.
+ * The properties are annotated with custom  annotation.
+ */
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

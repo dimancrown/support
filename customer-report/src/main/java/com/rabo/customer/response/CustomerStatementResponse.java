@@ -1,7 +1,11 @@
 package com.rabo.customer.response;
 
 import java.util.List;
-
+/**
+ * This class is replication of expected Json response
+ * @author diman
+ *
+ */
 public class CustomerStatementResponse {
 	
 	private String result;

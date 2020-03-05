@@ -1,6 +1,11 @@
 package com.rabo.customer.models;
 
 import java.math.BigDecimal;
+/**
+ * @author diman
+ * This POJO/model replicate the Json object of customer statement
+ * The properties are annotated with custom  annotation.
+ */
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

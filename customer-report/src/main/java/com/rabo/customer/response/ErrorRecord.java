@@ -1,5 +1,9 @@
-package com.rabo.customer.response;
-
+package com. rabo.customer.response;
+/**
+ * This POJO contains properties of error records description.
+ * @author diman
+ *
+ */
 public class ErrorRecord {
 	
 	private String reference;
