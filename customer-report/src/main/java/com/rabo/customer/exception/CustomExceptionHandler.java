@@ -57,7 +57,7 @@ public class CustomExceptionHandler {
 				List<CustomerStatement> errorInputs = (List<CustomerStatement>) ((FieldError) error).getRejectedValue();
 				List<CustomerStatement> duplicateRecords = errorInputs.stream().collect(Collectors.groupingBy(CustomerStatement::getTxnReference)).entrySet().stream().filter(e -> e.getValue().size()>1)
 						.flatMap(c->c.getValue().stream()).collect(Collectors.toList());
-				errors.addAll(duplicateRecords.stream().map(st->bindErrorMessages(st)).collect(Collectors.toList()));
+				errors.addAll(duplicateRecords.stream().map(new CustomExceptionHandler()::bindErrorMessages).collect(Collectors.toList()));
 				builder.append(error.getDefaultMessage());
 			}
 			respone.setErrorRecords(errors);

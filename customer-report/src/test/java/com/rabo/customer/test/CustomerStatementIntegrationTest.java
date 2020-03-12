@@ -94,11 +94,5 @@ public class CustomerStatementIntegrationTest {
         assertEquals(200, responseEntity.getStatusCodeValue());
         assertEquals(CustomerResult.DUPLICATE_REFERENCE_INCORRECT_END_BALANCE.name(), responseEntity.getBody().getResult());
     }
-    
-    @Test
-    public void customer_statement_internal_error_exception()
-    {
-    	
-    }
 
 }
